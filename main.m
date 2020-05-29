@@ -16,9 +16,17 @@ sim.g_Mond = simout.g_Mond.signals.values(:,1);
 figure(1)
 subplot(3,1,1)
 plot(sim.time, sim.s_above_ground);
+title('Height above Moon Surface');
+title('Height [m]');
 
 subplot(3,1,2);
-plot(sim.time, sim.m_Lunar_aktuell);
+plot(sim.time, sim.m_Lunar_aktuell/10);
+title('Mass Lunar Lander')
+ylabel('Mass [t]');
 
 subplot(3,1,3);
 plot(sim.time, sim.g_Mond);
+xlabel('Time [s]');
+ylabel('Grav. Acceleration [m]');
+title('Moon Gravitational Acceleration');
+sgtitle(sprintf('Lunar Landing - Entry Velocity: %d m/s', v_Lunar)); 

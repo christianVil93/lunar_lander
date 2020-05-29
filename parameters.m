@@ -12,4 +12,4 @@ s_above_ground  = 1000; %m
 s_Lunar         = r_Mond + s_above_ground; % m
 
 % todo: choose v_Luaner (2 dimensionen? radial und tangential?)
-v_Lunar         = -50; %m/s
+v_Lunar         = -60; %m/s
