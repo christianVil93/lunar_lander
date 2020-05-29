@@ -8,8 +8,7 @@ m_Mond           = 7.346e22; % kg
 G               = 6.6743e-11; % m^3/(kg*s^2)
 
 % todo: choose s_Lunar
-s_above_ground  = 1000; %m
-s_Lunar         = r_Mond + s_above_ground; % m
+s_Lunar         = 1000; % m
 
 % todo: choose v_Luaner (2 dimensionen? radial und tangential?)
 v_Lunar         = -60; %m/s
