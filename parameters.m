@@ -11,4 +11,4 @@ G               = 6.6743e-11; % m^3/(kg*s^2)
 s_Lunar         = 3200; % m
 
 % todo: choose v_Luaner (2 dimensionen? radial und tangential?)
-v_Lunar         = -20; %m/s
+v_Lunar         = -10; %m/s
