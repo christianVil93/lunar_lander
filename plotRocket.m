@@ -71,6 +71,7 @@ end
 % plot moon surface
 rectangle('Position',[-50,-100,100,100],'FaceColor',[0.9 0.9 0.9])
 
+% set aspect ratios to be equal
 daspect(axes_handle, [1,1,1]);
 
 limits_moving = z + [-1, 1]*(body_height + top_height)*1.2/zoom_factor;
