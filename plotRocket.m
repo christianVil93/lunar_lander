@@ -1,16 +1,18 @@
-function plotRocket(axes_handle, vertical_position, m_Fuel, Bremse, zoom_factor)
+%% plotRocket 
+% plots rocket consisting of the rocket body, top, fuel tank and flame
+%
+% inputs:   axes_handle...       axes handle to plot where it is shown
+%           vertical_position... vertical position of the rocket [m]
+%           m_Fuel...            mass of current fuel [kg]
+%           Bremse...            brakes on or off [true/false]
 
-if ~exist('zoom_factor','var')
-   zoom_factor = 1; 
-end
-
-z = vertical_position;
-
+function plotRocket(axes_handle, vertical_position, m_Fuel, Bremse)
+%% rocket geometrical parameters 
 rocket_width = 10;
 top_height = 20;
 body_height = 60;
 
-%% generate top shape
+%% generate top shape from spline
 x = [0, top_height];
 y = [0, rocket_width/2, 0, -(rocket_width)/top_height];
 spl_top = spline(x,y);
@@ -24,7 +26,7 @@ x_top_right = top_right(1,:);
 y_top_right = top_right(2,:) + body_height;
 
 
-%% generate flame shape
+%% generate flame shape from spline
 x = [0, top_height];
 y = [0.5, 0.4*rocket_width, 0, -(rocket_width)/top_height];
 spl_flame = spline(x,y);
@@ -37,13 +39,12 @@ y_flame_left = flame_left(2,:);
 x_flame_right = flame_right(1,:);
 y_flame_right = flame_left(2,:);
 
-%% todo: implement smaller flame inside big flame
-
-
-%%
-
+%% animate objects
 % clear previous plot
 delete(findobj('Tag','rocket'))
+
+% shorter variable name for function
+z = vertical_position;
 
 % animate rocket
 rocket_x = [x_top_left, fliplr(x_top_right), -rocket_width/2*[-1, -1, 1, 1]];
@@ -55,7 +56,7 @@ tank_y = z + body_height*(0.1 + 0.8*[0, 1, 1, 0]);
 fuel_x = rocket_width*0.4*[-1, -1, 1, 1];
 fuel_y = z + body_height*(0.1 + 0.8*[0, 1, 1, 0])*m_Fuel/8200;
 
-%% animate flame
+% animate flame
 flame_x = [x_flame_left, fliplr(x_flame_right)];
 flame_y = z + [y_flame_left, fliplr(y_flame_right)];
 
@@ -74,13 +75,16 @@ rectangle('Position',[-50,-100,100,100],'FaceColor',[0.9 0.9 0.9])
 % set aspect ratios to be equal
 daspect(axes_handle, [1,1,1]);
 
-limits_moving = z + [-1, 1]*(body_height + top_height)*1.2/zoom_factor;
-limits_fixed = [0, 2]*(body_height + top_height)*1.2/zoom_factor;
+% as soon as the ground is visible, the axis limits are no longer moved
+% with the rocket, instead it is fixed relative to the moon surface
+limits_moving = z + [-1, 1]*(body_height + top_height)*1.2;
+limits_fixed = [0, 2]*(body_height + top_height)*1.2;
 if limits_moving(1)> -20
     axes_handle.YLim = limits_moving;
 else
     axes_handle.YLim = limits_fixed-20;
 end
 
+% background color set to dark blue to imitate space
 axes_handle.Color = [0, 0.4471, 0.7412];
 end
